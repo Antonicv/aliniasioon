@@ -3,7 +3,6 @@ package com.alineacion.ruedas.ui.results
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -29,7 +28,7 @@ class ResultsActivity : AppCompatActivity() {
     private lateinit var detailsRecyclerView: RecyclerView
     private lateinit var recommendationsCard: MaterialCardView
     private lateinit var recommendationsHeader: LinearLayout
-    private lateinit var recommendationsToggle: ImageView
+    private lateinit var recommendationsToggle: MaterialTextView
     
     private lateinit var overallStatusText: MaterialTextView
     private lateinit var measurementDateText: MaterialTextView
@@ -53,11 +52,27 @@ class ResultsActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_results)
         
-        setupViews()
-        loadMeasurements()
-        displayResults()
+        try {
+            setContentView(R.layout.activity_results)
+            android.util.Log.d("ResultsActivity", "Layout set successfully")
+            
+            setupViews()
+            android.util.Log.d("ResultsActivity", "Views setup completed")
+            
+            loadMeasurements()
+            android.util.Log.d("ResultsActivity", "Measurements loaded")
+            
+            displayResults()
+            android.util.Log.d("ResultsActivity", "Results displayed")
+            
+        } catch (e: Exception) {
+            android.util.Log.e("ResultsActivity", "Error in onCreate: ${e.message}", e)
+            // Mostrar error al usuario
+            setContentView(android.R.layout.simple_list_item_1)
+            val errorText = findViewById<android.widget.TextView>(android.R.id.text1)
+            errorText?.text = "Error al cargar resultados: ${e.message}"
+        }
     }
     
     private fun setupViews() {
@@ -94,34 +109,52 @@ class ResultsActivity : AppCompatActivity() {
         val bundle = intent.getBundleExtra("measurements")
         
         if (bundle != null) {
-            // Load workflow information
-            val wheelCount = bundle.getInt("wheel_count", 4)
-            val referenceWheel = bundle.getString("reference_wheel", "")
-            val referenceToeRaw = bundle.getFloat("reference_toe_raw", 0f)
-            val measuredWheels = bundle.getStringArray("measured_wheels") ?: emptyArray()
-            
-            // Load measurements for each wheel
-            measuredWheels.forEach { wheelName ->
-                val wheelKey = wheelName.replace(" ", "_").lowercase()
-                val camber = bundle.getFloat("${wheelKey}_camber", 0f)
-                val toe = bundle.getFloat("${wheelKey}_toe", 0f)
+            try {
+                // Load workflow information
+                val wheelCount = bundle.getInt("wheel_count", 4)
+                val referenceWheel = bundle.getString("reference_wheel", "")
+                val referenceToeRaw = bundle.getFloat("reference_toe_raw", 0f)
+                val measuredWheels = bundle.getStringArray("measured_wheels") ?: emptyArray()
                 
-                measurementResults[wheelName] = mapOf(
-                    "camber" to camber,
-                    "toe" to toe
-                    // Caster removed from results
+                // Clear previous results
+                measurementResults.clear()
+                
+                // Load measurements for each wheel
+                measuredWheels.forEach { wheelName ->
+                    val wheelKey = wheelName.replace(" ", "_").lowercase()
+                    val camber = bundle.getFloat("${wheelKey}_camber", 0f)
+                    val toe = bundle.getFloat("${wheelKey}_toe", 0f)
+                    
+                    measurementResults[wheelName] = mapOf(
+                        "camber" to camber,
+                        "toe" to toe
+                        // Caster removed from results
+                    )
+                }
+                
+                // Store workflow info for display
+                val workflowInfo = mapOf(
+                    "wheel_count" to wheelCount.toFloat(),
+                    "reference_wheel_name" to (referenceWheel.hashCode().toFloat()), // Store reference wheel info
+                    "reference_toe_raw" to referenceToeRaw
                 )
+                measurementResults["_workflow_info"] = workflowInfo
+                
+                // Debug: Log loaded data
+                android.util.Log.d("ResultsActivity", "Loaded ${measurementResults.size - 1} wheel measurements")
+                measurementResults.forEach { (key, value) ->
+                    if (key != "_workflow_info") {
+                        android.util.Log.d("ResultsActivity", "$key: $value")
+                    }
+                }
+                
+            } catch (e: Exception) {
+                android.util.Log.e("ResultsActivity", "Error loading measurements: ${e.message}")
+                generateSampleData()
             }
-            
-            // Store workflow info for display
-            val workflowInfo = mapOf(
-                "wheel_count" to wheelCount.toFloat(),
-                "reference_wheel" to referenceWheel.hashCode().toFloat(), // Convert string to float for storage
-                "reference_toe_raw" to referenceToeRaw
-            )
-            measurementResults["_workflow_info"] = workflowInfo
         } else {
             // Fallback: try to load individual wheel measurements (old format)
+            var hasData = false
             wheels.forEach { wheel ->
                 val camber = intent.getFloatExtra("${wheel}_camber", 0f)
                 val toe = intent.getFloatExtra("${wheel}_toe", 0f)
@@ -131,11 +164,13 @@ class ResultsActivity : AppCompatActivity() {
                         "camber" to camber,
                         "toe" to toe
                     )
+                    hasData = true
                 }
             }
             
             // If no measurements found, generate sample data
-            if (measurementResults.isEmpty()) {
+            if (!hasData) {
+                android.util.Log.w("ResultsActivity", "No measurement data found, using sample data")
                 generateSampleData()
             }
         }
@@ -158,16 +193,29 @@ class ResultsActivity : AppCompatActivity() {
     }
     
     private fun displayResults() {
+        // Validate that we have measurement data
+        val wheelData = measurementResults.filterKeys { !it.startsWith("_") }
+        if (wheelData.isEmpty()) {
+            android.util.Log.e("ResultsActivity", "No wheel measurement data available")
+            generateSampleData()
+            displayResults() // Retry with sample data
+            return
+        }
+        
         val analysis = analyzeResults()
         val workflowInfo = measurementResults["_workflow_info"]
         
         // Show measurement summary with workflow info
-        val referenceWheelHash = workflowInfo?.get("reference_wheel")?.toInt()
-        val referenceWheelName = measurementResults.keys.find { 
-            it.hashCode() == referenceWheelHash 
-        } ?: "Rueda Delantera Izquierda"
+        val referenceWheelName = try {
+            val referenceWheelHash = workflowInfo?.get("reference_wheel_name")?.toInt()
+            measurementResults.keys.find { 
+                it.hashCode() == referenceWheelHash && !it.startsWith("_")
+            } ?: wheelData.keys.first() // Use first wheel as fallback
+        } catch (e: Exception) {
+            wheelData.keys.first() // Safe fallback
+        }
         
-        val wheelCount = workflowInfo?.get("wheel_count")?.toInt() ?: measurementResults.size - 1
+        val wheelCount = workflowInfo?.get("wheel_count")?.toInt() ?: wheelData.size
         val referenceToeRaw = workflowInfo?.get("reference_toe_raw") ?: 0f
         
         // Enhanced summary with reference wheel info
@@ -189,10 +237,17 @@ class ResultsActivity : AppCompatActivity() {
         // Show recommendations
         recommendationsText.text = analysis.recommendations
         
-        // Setup adapter for details (exclude workflow info)
-        val wheelData = measurementResults.filterKeys { !it.startsWith("_") }
-        val adapter = WheelResultsAdapter(wheelData.toMutableMap())
-        detailsRecyclerView.adapter = adapter
+        // Setup adapter for details
+        try {
+            val adapter = WheelResultsAdapter(wheelData.toMutableMap())
+            detailsRecyclerView.adapter = adapter
+            android.util.Log.d("ResultsActivity", "Results displayed successfully for ${wheelData.size} wheels")
+        } catch (e: Exception) {
+            android.util.Log.e("ResultsActivity", "Error setting up RecyclerView: ${e.message}")
+            // Show error in UI
+            overallStatusText.text = "❌ Error mostrando resultados detallados"
+            overallStatusText.setTextColor(getColor(android.R.color.holo_red_dark))
+        }
     }
     
     private fun analyzeResults(): MeasurementAnalysis {
@@ -354,10 +409,10 @@ class ResultsActivity : AppCompatActivity() {
         
         if (isRecommendationsExpanded) {
             recommendationsText.visibility = View.VISIBLE
-            recommendationsToggle.setImageResource(R.drawable.ic_keyboard_arrow_up)
+            recommendationsToggle.text = "▲"
         } else {
             recommendationsText.visibility = View.GONE
-            recommendationsToggle.setImageResource(R.drawable.ic_keyboard_arrow_down)
+            recommendationsToggle.text = "▼"
         }
     }
     

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    
+    <!-- Car body outline -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:strokeColor="#BDBDBD"
+        android:strokeWidth="1"
+        android:pathData="M8,12 L40,12 L40,36 L8,36 Z" />
+    
+    <!-- Front Left Wheel -->
+    <path
+        android:fillColor="#2196F3"
+        android:strokeColor="#1976D2"
+        android:strokeWidth="1"
+        android:pathData="M12,15 C13.7,15 15,16.3 15,18 C15,19.7 13.7,21 12,21 C10.3,21 9,19.7 9,18 C9,16.3 10.3,15 12,15 Z" />
+    
+    <!-- Front Right Wheel -->
+    <path
+        android:fillColor="#2196F3"
+        android:strokeColor="#1976D2"
+        android:strokeWidth="1"
+        android:pathData="M36,15 C37.7,15 39,16.3 39,18 C39,19.7 37.7,21 36,21 C34.3,21 33,19.7 33,18 C33,16.3 34.3,15 36,15 Z" />
+    
+    <!-- Rear Left Wheel -->
+    <path
+        android:fillColor="#2196F3"
+        android:strokeColor="#1976D2"
+        android:strokeWidth="1"
+        android:pathData="M12,27 C13.7,27 15,28.3 15,30 C15,31.7 13.7,33 12,33 C10.3,33 9,31.7 9,30 C9,28.3 10.3,27 12,27 Z" />
+    
+    <!-- Rear Right Wheel -->
+    <path
+        android:fillColor="#2196F3"
+        android:strokeColor="#1976D2"
+        android:strokeWidth="1"
+        android:pathData="M36,27 C37.7,27 39,28.3 39,30 C39,31.7 37.7,33 36,33 C34.3,33 33,31.7 33,30 C33,28.3 34.3,27 36,27 Z" />
+    
+    <!-- Center lines -->
+    <path
+        android:strokeColor="#BDBDBD"
+        android:strokeWidth="1"
+        android:pathData="M24,12 L24,36" />
+    
+    <path
+        android:strokeColor="#BDBDBD"
+        android:strokeWidth="1"
+        android:pathData="M8,24 L40,24" />
+</vector>

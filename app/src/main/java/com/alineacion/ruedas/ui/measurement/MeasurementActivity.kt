@@ -105,7 +105,20 @@ class MeasurementActivity : AppCompatActivity(), SensorEventListener {
         setupViews()
         setupSensors()
         setupMeasurement()
-        showWheelSelection()
+        
+        // Verificar si llegamos desde WheelSelectionActivity
+        val selectedWheelsArray = intent.getStringArrayExtra("selected_wheels")
+        if (selectedWheelsArray != null) {
+            // Usar ruedas seleccionadas desde WheelSelectionActivity
+            selectedWheels.clear()
+            selectedWheels.addAll(selectedWheelsArray)
+            selectedWheelsCount = selectedWheels.size
+            isWheelSelectionMode = false
+            startMeasurementProcess()
+        } else {
+            // Modo legacy: mostrar selección de ruedas en la misma actividad
+            showWheelSelection()
+        }
     }
     
     private fun setupViews() {
@@ -177,12 +190,18 @@ class MeasurementActivity : AppCompatActivity(), SensorEventListener {
         resultsCard.visibility = android.view.View.GONE
         wheelSelectionCard.visibility = android.view.View.VISIBLE
         
-        // Setup wheel count selection with improved styling
-        measureButton.text = "🚗 2 RUEDAS"
-        measureButton.icon = getDrawable(android.R.drawable.ic_dialog_info)
-        nextWheelButton.text = "🚙 4 RUEDAS"
-        nextWheelButton.icon = getDrawable(android.R.drawable.ic_dialog_info)
+        // Setup wheel count selection with visual icons
+        measureButton.text = "2 RUEDAS DELANTERAS"
+        measureButton.icon = getDrawable(R.drawable.ic_wheels_2)
+        measureButton.iconGravity = MaterialButton.ICON_GRAVITY_TOP
+        measureButton.iconPadding = 16
+        
+        nextWheelButton.text = "4 RUEDAS COMPLETAS"
+        nextWheelButton.icon = getDrawable(R.drawable.ic_wheels_4)
+        nextWheelButton.iconGravity = MaterialButton.ICON_GRAVITY_TOP
+        nextWheelButton.iconPadding = 16
         nextWheelButton.visibility = android.view.View.VISIBLE
+        
         finishButton.visibility = android.view.View.GONE
         backButton.text = "⬅️ Atrás"
         

@@ -175,7 +175,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun startMeasurementProcess() {
         // Medición disponible sin calibración obligatoria
-        val intent = Intent(this, com.alineacion.ruedas.ui.measurement.MeasurementActivity::class.java)
+        val intent = Intent(this, com.alineacion.ruedas.ui.wheelselection.WheelSelectionActivity::class.java)
         startActivity(intent)
     }
     

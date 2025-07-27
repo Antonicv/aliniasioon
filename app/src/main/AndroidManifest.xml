@@ -47,6 +47,11 @@
             android:screenOrientation="portrait" />
             
         <activity
+            android:name=".ui.wheelselection.WheelSelectionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+            
+        <activity
             android:name=".ui.results.ResultsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

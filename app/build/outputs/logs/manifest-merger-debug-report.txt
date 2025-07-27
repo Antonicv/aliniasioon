@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:2:1-56:12
-INJECTED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:2:1-56:12
-INJECTED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:2:1-56:12
-INJECTED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:2:1-56:12
+ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:2:1-61:12
+INJECTED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:2:1-61:12
+INJECTED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:2:1-61:12
+INJECTED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:2:1-61:12
 MERGED from [androidx.databinding:databinding-adapters:8.4.2] C:\Users\anton\.gradle\caches\transforms-4\b106f0831f818632c8cc295d3fa95bc5\transformed\databinding-adapters-8.4.2\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.databinding:databinding-ktx:8.4.2] C:\Users\anton\.gradle\caches\transforms-4\a87daed5cab509fe9e7f734d449034fd\transformed\databinding-ktx-8.4.2\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.databinding:databinding-runtime:8.4.2] C:\Users\anton\.gradle\caches\transforms-4\e4f0d2cd416c4faef28ec4407116cf7e\transformed\databinding-runtime-8.4.2\AndroidManifest.xml:2:1-7:12
@@ -111,8 +111,8 @@ ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\An
 	android:name
 		ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:17:9-55
 application
-ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:20:5-54:19
-INJECTED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:20:5-54:19
+ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:20:5-59:19
+INJECTED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:20:5-59:19
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\anton\.gradle\caches\transforms-4\b5c1820d57b9cef25ae43c259a95a94f\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\anton\.gradle\caches\transforms-4\b5c1820d57b9cef25ae43c259a95a94f\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\anton\.gradle\caches\transforms-4\6e4652a8b67ac1b0cb07b8eeabd0e539\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -189,14 +189,22 @@ ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\An
 		ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:46:13-37
 	android:name
 		ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:45:13-63
-activity#com.alineacion.ruedas.ui.results.ResultsActivity
+activity#com.alineacion.ruedas.ui.wheelselection.WheelSelectionActivity
 ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:49:9-52:52
 	android:screenOrientation
 		ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:52:13-49
 	android:exported
 		ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:51:13-37
 	android:name
-		ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:50:13-55
+		ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:50:13-69
+activity#com.alineacion.ruedas.ui.results.ResultsActivity
+ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:54:9-57:52
+	android:screenOrientation
+		ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:57:13-49
+	android:exported
+		ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:56:13-37
+	android:name
+		ADDED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml:55:13-55
 uses-sdk
 INJECTED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\anton\OneDrive\Escritorio\FINALE\aliniasioon\app\src\main\AndroidManifest.xml

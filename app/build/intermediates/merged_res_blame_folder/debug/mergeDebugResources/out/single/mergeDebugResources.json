@@ -1,15 +1,55 @@
 [
     {
-        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\mipmap-xxhdpi\\ic_launcher.png"
-    },
-    {
-        "merged": "com.alineacion.ruedas.app-debug-56:/drawable_ic_keyboard_arrow_up.xml.flat",
-        "source": "com.alineacion.ruedas.app-main-58:/drawable/ic_keyboard_arrow_up.xml"
+        "merged": "com.alineacion.ruedas.app-debug-56:/layout_activity_wheel_selection.xml.flat",
+        "source": "com.alineacion.ruedas.app-main-58:/layout/activity_wheel_selection.xml"
     },
     {
         "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\drawable_ic_launcher_foreground.xml.flat",
         "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\mipmap-xxxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\drawable_ic_keyboard_arrow_up.xml.flat",
+        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\drawable\\ic_keyboard_arrow_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\drawable_ic_keyboard_arrow_down.xml.flat",
+        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\drawable\\ic_keyboard_arrow_down.xml"
+    },
+    {
+        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\layout_activity_results.xml.flat",
+        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\layout\\activity_results.xml"
+    },
+    {
+        "merged": "com.alineacion.ruedas.app-debug-56:/drawable_rounded_background.xml.flat",
+        "source": "com.alineacion.ruedas.app-main-58:/drawable/rounded_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\mipmap-xxhdpi\\ic_launcher.png"
     },
     {
         "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-mdpi_ic_launcher_round.png.flat",
@@ -24,40 +64,20 @@
         "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\layout\\item_wheel_result.xml"
     },
     {
-        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\layout_activity_main.xml.flat",
-        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\layout\\activity_main.xml"
+        "merged": "com.alineacion.ruedas.app-debug-56:/drawable_neumatico.png.flat",
+        "source": "com.alineacion.ruedas.app-main-58:/drawable/neumatico.png"
     },
     {
-        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
-        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\mipmap-xxxhdpi\\ic_launcher_round.png"
-    },
-    {
-        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-hdpi_ic_launcher_round.png.flat",
-        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\mipmap-hdpi\\ic_launcher_round.png"
-    },
-    {
-        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\drawable_ic_launcher_background.xml.flat",
-        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\drawable\\ic_launcher_background.xml"
+        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\drawable_ic_wheels_2.xml.flat",
+        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\drawable\\ic_wheels_2.xml"
     },
     {
         "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\xml_backup_rules.xml.flat",
         "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\xml\\backup_rules.xml"
     },
     {
-        "merged": "com.alineacion.ruedas.app-debug-56:/drawable_ic_keyboard_arrow_down.xml.flat",
-        "source": "com.alineacion.ruedas.app-main-58:/drawable/ic_keyboard_arrow_down.xml"
-    },
-    {
-        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\mipmap-xxxhdpi\\ic_launcher.png"
-    },
-    {
         "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-xxhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\mipmap-xxhdpi\\ic_launcher_round.png"
-    },
-    {
-        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\layout_activity_results.xml.flat",
-        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\layout\\activity_results.xml"
     },
     {
         "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-hdpi_ic_launcher.png.flat",
@@ -80,8 +100,8 @@
         "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\xml\\data_extraction_rules.xml"
     },
     {
-        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-mdpi_ic_launcher.png.flat",
-        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\mipmap-mdpi\\ic_launcher.png"
+        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\drawable_ic_wheels_4.xml.flat",
+        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\drawable\\ic_wheels_4.xml"
     },
     {
         "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-debug-56:\\mipmap-xhdpi_ic_launcher.png.flat",
