@@ -1,4 +1,4 @@
-# 📱 MANUAL A PRUEBA DE TONTOS - App Alineación de Ruedas
+# 📱 MANUAL A PRUEBA DE TONTOS - AliniaSoon
 
 ## 🚀 GUÍA COMPLETA PASO A PASO
 

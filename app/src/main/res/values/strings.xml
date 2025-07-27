@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     
     <!-- App Name -->
-    <string name="app_name">Alineación Ruedas</string>
+    <string name="app_name">AliniaSoon</string>
     
     <!-- Main Activity -->
     <string name="sensor_status_checking">Verificando sensores…</string>

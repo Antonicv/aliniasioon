@@ -72,6 +72,16 @@ class MainActivity : AppCompatActivity() {
             openMeasurementHistory()
         }
         
+        // Actualizar textos para reflejar que calibración es opcional
+        calibrationStatusText.text = """
+            📱 CALIBRACIÓN (OPCIONAL)
+            
+            Los sensores del smartphone son suficientemente precisos para alineación básica.
+            La calibración solo es necesaria para mediciones de máxima precisión.
+        """.trimIndent()
+        
+        startCalibrationButton.text = "🔧 Calibración Avanzada (Opcional)"
+        
         // Observar estados
         observeCalibrationState()
     }
@@ -114,8 +124,8 @@ class MainActivity : AppCompatActivity() {
     private fun updateButtonStates(availability: com.alineacion.ruedas.core.SensorAvailability) {
         startCalibrationButton.isEnabled = availability.isFullyCompatible
         
-        // El botón de medición solo se habilita después de la calibración
-        startMeasurementButton.isEnabled = false
+        // El botón de medición está siempre habilitado (calibración opcional)
+        startMeasurementButton.isEnabled = availability.isFullyCompatible
     }
     
     /**
@@ -135,20 +145,17 @@ class MainActivity : AppCompatActivity() {
     private fun updateCalibrationStatusUI(state: com.alineacion.ruedas.core.CalibrationState) {
         val statusText = when (state) {
             com.alineacion.ruedas.core.CalibrationState.NOT_STARTED -> {
-                startMeasurementButton.isEnabled = false
-                "Calibración requerida"
+                // Botón de medición siempre habilitado (calibración opcional)
+                "📱 Calibración opcional disponible"
             }
             com.alineacion.ruedas.core.CalibrationState.COMPLETED -> {
-                startMeasurementButton.isEnabled = true
-                "✓ Calibración completada"
+                "✅ Calibración completada - Precisión mejorada"
             }
             com.alineacion.ruedas.core.CalibrationState.ERROR -> {
-                startMeasurementButton.isEnabled = false
-                "✗ Error en calibración"
+                "⚠️ Error en calibración - Medición sin calibrar disponible"
             }
             else -> {
-                startMeasurementButton.isEnabled = false
-                "Calibrando..."
+                "🔄 Calibrando..."
             }
         }
         
@@ -167,13 +174,9 @@ class MainActivity : AppCompatActivity() {
      * Inicia el proceso de medición
      */
     private fun startMeasurementProcess() {
-        if (calibrationEngine.isCalibrationValid()) {
-            // val intent = Intent(this, MeasurementActivity::class.java)
-            // startActivity(intent)
-            
-            // Por ahora mostrar mensaje
-            // TODO: Implementar MeasurementActivity
-        }
+        // Medición disponible sin calibración obligatoria
+        val intent = Intent(this, com.alineacion.ruedas.ui.measurement.MeasurementActivity::class.java)
+        startActivity(intent)
     }
     
     /**

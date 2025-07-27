@@ -4,6 +4,7 @@ package com.alineacion.ruedas.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,7 +42,13 @@ public final class ActivityResultsBinding implements ViewBinding {
   public final MaterialCardView recommendationsCard;
 
   @NonNull
+  public final LinearLayout recommendationsHeader;
+
+  @NonNull
   public final MaterialTextView recommendationsText;
+
+  @NonNull
+  public final MaterialTextView recommendationsToggle;
 
   @NonNull
   public final MaterialButton shareResultsButton;
@@ -56,7 +63,8 @@ public final class ActivityResultsBinding implements ViewBinding {
       @NonNull MaterialButton backToMainButton, @NonNull RecyclerView detailsRecyclerView,
       @NonNull MaterialTextView measurementDateText, @NonNull MaterialButton newMeasurementButton,
       @NonNull MaterialTextView overallStatusText, @NonNull MaterialCardView recommendationsCard,
-      @NonNull MaterialTextView recommendationsText, @NonNull MaterialButton shareResultsButton,
+      @NonNull LinearLayout recommendationsHeader, @NonNull MaterialTextView recommendationsText,
+      @NonNull MaterialTextView recommendationsToggle, @NonNull MaterialButton shareResultsButton,
       @NonNull MaterialCardView summaryCard, @NonNull MaterialTextView vehicleStatusText) {
     this.rootView = rootView;
     this.backToMainButton = backToMainButton;
@@ -65,7 +73,9 @@ public final class ActivityResultsBinding implements ViewBinding {
     this.newMeasurementButton = newMeasurementButton;
     this.overallStatusText = overallStatusText;
     this.recommendationsCard = recommendationsCard;
+    this.recommendationsHeader = recommendationsHeader;
     this.recommendationsText = recommendationsText;
+    this.recommendationsToggle = recommendationsToggle;
     this.shareResultsButton = shareResultsButton;
     this.summaryCard = summaryCard;
     this.vehicleStatusText = vehicleStatusText;
@@ -134,9 +144,21 @@ public final class ActivityResultsBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.recommendationsHeader;
+      LinearLayout recommendationsHeader = ViewBindings.findChildViewById(rootView, id);
+      if (recommendationsHeader == null) {
+        break missingId;
+      }
+
       id = R.id.recommendationsText;
       MaterialTextView recommendationsText = ViewBindings.findChildViewById(rootView, id);
       if (recommendationsText == null) {
+        break missingId;
+      }
+
+      id = R.id.recommendationsToggle;
+      MaterialTextView recommendationsToggle = ViewBindings.findChildViewById(rootView, id);
+      if (recommendationsToggle == null) {
         break missingId;
       }
 
@@ -160,8 +182,8 @@ public final class ActivityResultsBinding implements ViewBinding {
 
       return new ActivityResultsBinding((ScrollView) rootView, backToMainButton,
           detailsRecyclerView, measurementDateText, newMeasurementButton, overallStatusText,
-          recommendationsCard, recommendationsText, shareResultsButton, summaryCard,
-          vehicleStatusText);
+          recommendationsCard, recommendationsHeader, recommendationsText, recommendationsToggle,
+          shareResultsButton, summaryCard, vehicleStatusText);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AlineacionRuedas"
+rootProject.name = "AliniaSoon"
 include(":app")

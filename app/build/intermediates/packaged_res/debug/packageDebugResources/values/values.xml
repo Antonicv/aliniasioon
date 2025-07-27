@@ -34,7 +34,7 @@
     <color name="warning_orange">#FF9800</color>
     <color name="warning_yellow">#F57F17</color>
     <string name="adjustment_needed">Requiere ajuste</string>
-    <string name="app_name">Alineación Ruedas</string>
+    <string name="app_name">AliniaSoon</string>
     <string name="calibrating">Calibrando…</string>
     <string name="calibration_completed">✓ Calibración completada</string>
     <string name="calibration_error">✗ Error en calibración</string>

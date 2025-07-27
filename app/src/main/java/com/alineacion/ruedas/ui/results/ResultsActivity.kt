@@ -2,6 +2,10 @@ package com.alineacion.ruedas.ui.results
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,11 +28,15 @@ class ResultsActivity : AppCompatActivity() {
     private lateinit var summaryCard: MaterialCardView
     private lateinit var detailsRecyclerView: RecyclerView
     private lateinit var recommendationsCard: MaterialCardView
+    private lateinit var recommendationsHeader: LinearLayout
+    private lateinit var recommendationsToggle: ImageView
     
     private lateinit var overallStatusText: MaterialTextView
     private lateinit var measurementDateText: MaterialTextView
     private lateinit var vehicleStatusText: MaterialTextView
     private lateinit var recommendationsText: MaterialTextView
+    
+    private var isRecommendationsExpanded = false
     
     private lateinit var newMeasurementButton: MaterialButton
     private lateinit var shareResultsButton: MaterialButton
@@ -53,12 +61,14 @@ class ResultsActivity : AppCompatActivity() {
     }
     
     private fun setupViews() {
-        title = "Resultados de Alineación"
+        title = "Resultados de Alineación - AliniaSoon"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         
         summaryCard = findViewById(R.id.summaryCard)
         detailsRecyclerView = findViewById(R.id.detailsRecyclerView)
         recommendationsCard = findViewById(R.id.recommendationsCard)
+        recommendationsHeader = findViewById(R.id.recommendationsHeader)
+        recommendationsToggle = findViewById(R.id.recommendationsToggle)
         
         overallStatusText = findViewById(R.id.overallStatusText)
         measurementDateText = findViewById(R.id.measurementDateText)
@@ -73,58 +83,115 @@ class ResultsActivity : AppCompatActivity() {
         shareResultsButton.setOnClickListener { shareResults() }
         backToMainButton.setOnClickListener { backToMain() }
         
+        // Setup recommendations toggle
+        recommendationsHeader.setOnClickListener { toggleRecommendations() }
+        
         // Setup RecyclerView
         detailsRecyclerView.layoutManager = LinearLayoutManager(this)
-        
-        // Set measurement date
-        val currentDate = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
-        measurementDateText.text = "Medición realizada: $currentDate"
     }
     
     private fun loadMeasurements() {
         val bundle = intent.getBundleExtra("measurements")
         
         if (bundle != null) {
-            wheels.forEach { wheel ->
-                val camber = bundle.getFloat("${wheel}_camber", 0f)
-                val toe = bundle.getFloat("${wheel}_toe", 0f)
-                val caster = bundle.getFloat("${wheel}_caster", 0f)
+            // Load workflow information
+            val wheelCount = bundle.getInt("wheel_count", 4)
+            val referenceWheel = bundle.getString("reference_wheel", "")
+            val referenceToeRaw = bundle.getFloat("reference_toe_raw", 0f)
+            val measuredWheels = bundle.getStringArray("measured_wheels") ?: emptyArray()
+            
+            // Load measurements for each wheel
+            measuredWheels.forEach { wheelName ->
+                val wheelKey = wheelName.replace(" ", "_").lowercase()
+                val camber = bundle.getFloat("${wheelKey}_camber", 0f)
+                val toe = bundle.getFloat("${wheelKey}_toe", 0f)
                 
-                measurementResults[wheel] = mapOf(
+                measurementResults[wheelName] = mapOf(
                     "camber" to camber,
-                    "toe" to toe,
-                    "caster" to caster
+                    "toe" to toe
+                    // Caster removed from results
                 )
             }
+            
+            // Store workflow info for display
+            val workflowInfo = mapOf(
+                "wheel_count" to wheelCount.toFloat(),
+                "reference_wheel" to referenceWheel.hashCode().toFloat(), // Convert string to float for storage
+                "reference_toe_raw" to referenceToeRaw
+            )
+            measurementResults["_workflow_info"] = workflowInfo
         } else {
-            // Datos de ejemplo si no hay mediciones reales
-            generateSampleData()
+            // Fallback: try to load individual wheel measurements (old format)
+            wheels.forEach { wheel ->
+                val camber = intent.getFloatExtra("${wheel}_camber", 0f)
+                val toe = intent.getFloatExtra("${wheel}_toe", 0f)
+                
+                if (camber != 0f || toe != 0f) {
+                    measurementResults[wheel] = mapOf(
+                        "camber" to camber,
+                        "toe" to toe
+                    )
+                }
+            }
+            
+            // If no measurements found, generate sample data
+            if (measurementResults.isEmpty()) {
+                generateSampleData()
+            }
         }
     }
     
     private fun generateSampleData() {
         measurementResults = mutableMapOf(
-            "Rueda Delantera Izquierda" to mapOf("camber" to -0.5f, "toe" to 0.2f, "caster" to 3.5f),
-            "Rueda Delantera Derecha" to mapOf("camber" to -0.3f, "toe" to 0.1f, "caster" to 3.7f),
-            "Rueda Trasera Izquierda" to mapOf("camber" to -1.2f, "toe" to -0.1f, "caster" to 0f),
-            "Rueda Trasera Derecha" to mapOf("camber" to -1.0f, "toe" to 0.0f, "caster" to 0f)
+            "Rueda Delantera Izquierda" to mapOf("camber" to -0.5f, "toe" to 0.0f), // Reference wheel
+            "Rueda Delantera Derecha" to mapOf("camber" to -0.3f, "toe" to 0.2f),
+            "Rueda Trasera Izquierda" to mapOf("camber" to -1.2f, "toe" to -0.1f),
+            "Rueda Trasera Derecha" to mapOf("camber" to -1.0f, "toe" to 0.1f)
+        )
+        
+        // Add workflow info for sample data
+        measurementResults["_workflow_info"] = mapOf(
+            "wheel_count" to 4f,
+            "reference_wheel" to "Rueda Delantera Izquierda".hashCode().toFloat(),
+            "reference_toe_raw" to 0.2f
         )
     }
     
     private fun displayResults() {
         val analysis = analyzeResults()
+        val workflowInfo = measurementResults["_workflow_info"]
         
-        // Mostrar estado general
-        overallStatusText.text = analysis.overallStatus
+        // Show measurement summary with workflow info
+        val referenceWheelHash = workflowInfo?.get("reference_wheel")?.toInt()
+        val referenceWheelName = measurementResults.keys.find { 
+            it.hashCode() == referenceWheelHash 
+        } ?: "Rueda Delantera Izquierda"
+        
+        val wheelCount = workflowInfo?.get("wheel_count")?.toInt() ?: measurementResults.size - 1
+        val referenceToeRaw = workflowInfo?.get("reference_toe_raw") ?: 0f
+        
+        // Enhanced summary with reference wheel info
+        overallStatusText.text = """
+            ${analysis.overallStatus}
+            
+            🎯 Rueda de referencia: ${referenceWheelName}
+            📊 Ruedas medidas: ${wheelCount}
+            📐 TOE de referencia (bruto): ${String.format("%.2f", referenceToeRaw)}°
+        """.trimIndent()
         overallStatusText.setTextColor(getColor(analysis.statusColor))
         
         vehicleStatusText.text = analysis.vehicleStatus
         
-        // Mostrar recomendaciones
+        // Show date
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        measurementDateText.text = "Medición realizada: ${dateFormat.format(Date())}"
+        
+        // Show recommendations
         recommendationsText.text = analysis.recommendations
         
-        // Setup adapter for details
-        val adapter = WheelResultsAdapter(measurementResults)
+        // Setup adapter for details (exclude workflow info)
+        val wheelData = measurementResults.filterKeys { !it.startsWith("_") }
+        val adapter = WheelResultsAdapter(wheelData.toMutableMap())
         detailsRecyclerView.adapter = adapter
     }
     
@@ -133,38 +200,35 @@ class ResultsActivity : AppCompatActivity() {
         val issues = mutableListOf<String>()
         val recommendations = mutableListOf<String>()
         
-        measurementResults.forEach { (wheel, measurements) ->
+        // Only analyze actual wheel measurements (exclude workflow info)
+        val wheelData = measurementResults.filterKeys { !it.startsWith("_") }
+        
+        wheelData.forEach { (wheel, measurements) ->
             val camber = measurements["camber"] ?: 0f
             val toe = measurements["toe"] ?: 0f
-            val caster = measurements["caster"] ?: 0f
             
             // Analizar Camber (normal: -2° a +2°)
             if (camber < -2f || camber > 2f) {
                 issuesFound++
                 issues.add("$wheel: Camber fuera de rango (${String.format("%.1f", camber)}°)")
                 if (camber < -2f) {
-                    recommendations.add("$wheel: Ajustar camber - rueda inclinada hacia adentro")
+                    recommendations.add("🔧 $wheel: Ajustar camber - rueda muy inclinada hacia adentro")
                 } else {
-                    recommendations.add("$wheel: Ajustar camber - rueda inclinada hacia afuera")
+                    recommendations.add("🔧 $wheel: Ajustar camber - rueda muy inclinada hacia afuera")
                 }
             }
             
-            // Analizar Toe (normal: -0.5° a +0.5°)
-            if (toe < -0.5f || toe > 0.5f) {
+            // Analizar Toe (normal: -0.5° a +0.5°) 
+            // Note: Reference wheel should always be 0°
+            val isReferenceWheel = toe == 0f && camber != 0f // Rough detection
+            if (!isReferenceWheel && (toe < -0.5f || toe > 0.5f)) {
                 issuesFound++
-                issues.add("$wheel: Toe fuera de rango (${String.format("%.1f", toe)}°)")
+                issues.add("$wheel: Convergencia fuera de rango (${String.format("%.2f", toe)}°)")
                 if (toe < -0.5f) {
-                    recommendations.add("$wheel: Ajustar convergencia - demasiado toe-out")
+                    recommendations.add("🔧 $wheel: Ajustar convergencia - rueda muy divergente")
                 } else {
-                    recommendations.add("$wheel: Ajustar convergencia - demasiado toe-in")
+                    recommendations.add("🔧 $wheel: Ajustar convergencia - rueda muy convergente")
                 }
-            }
-            
-            // Analizar Caster solo para ruedas delanteras (normal: 1° a 7°)
-            if (wheel.contains("Delantera") && (caster < 1f || caster > 7f)) {
-                issuesFound++
-                issues.add("$wheel: Caster fuera de rango (${String.format("%.1f", caster)}°)")
-                recommendations.add("$wheel: Verificar caster - puede afectar la estabilidad")
             }
         }
         
@@ -182,15 +246,15 @@ class ResultsActivity : AppCompatActivity() {
         }
         
         val vehicleStatus = when {
-            issuesFound == 0 -> "Tu vehículo presenta una alineación excelente. No se requieren ajustes en este momento."
-            issuesFound <= 2 -> "Tu vehículo presenta una alineación aceptable con algunos ajustes menores recomendados."
-            else -> "Tu vehículo requiere ajustes de alineación para optimizar el rendimiento y seguridad."
+            issuesFound == 0 -> "🎉 Tu vehículo presenta una alineación excelente. No se requieren ajustes en este momento."
+            issuesFound <= 2 -> "👍 Tu vehículo presenta una alineación aceptable con algunos ajustes menores recomendados."
+            else -> "⚠️ Tu vehículo requiere ajustes de alineación para optimizar el rendimiento y seguridad."
         }
         
         val recommendationsText = if (recommendations.isNotEmpty()) {
-            "Recomendaciones:\n\n" + recommendations.joinToString("\n\n• ", "• ")
+            "🔧 RECOMENDACIONES:\n\n" + recommendations.joinToString("\n\n• ", "• ")
         } else {
-            "Tu vehículo no requiere ajustes de alineación en este momento. ¡Excelente!"
+            "🎉 ¡Tu vehículo no requiere ajustes de alineación en este momento!\n\nTodas las mediciones están dentro de los rangos normales."
         }
         
         return MeasurementAnalysis(
@@ -208,37 +272,74 @@ class ResultsActivity : AppCompatActivity() {
     
     private fun shareResults() {
         val analysis = analyzeResults()
+        val workflowInfo = measurementResults["_workflow_info"]
+        val referenceWheelHash = workflowInfo?.get("reference_wheel")?.toInt()
+        val referenceWheelName = measurementResults.keys.find { 
+            it.hashCode() == referenceWheelHash 
+        } ?: "Rueda Delantera Izquierda"
+        val wheelCount = workflowInfo?.get("wheel_count")?.toInt() ?: measurementResults.size - 1
+        val referenceToeRaw = workflowInfo?.get("reference_toe_raw") ?: 0f
+        
         val shareText = buildString {
-            appendLine("📱 Resultados de Alineación de Ruedas")
-            appendLine("📅 ${measurementDateText.text}")
+            appendLine("🚗 INFORME DE ALINEACIÓN - AliniaSoon")
+            appendLine("==================================================")
+            appendLine("📅 Fecha: ${java.text.SimpleDateFormat("dd/MM/yyyy HH:mm", java.util.Locale.getDefault()).format(java.util.Date())}")
             appendLine()
-            appendLine("📊 RESUMEN:")
-            appendLine(analysis.overallStatus)
+            
+            appendLine("📊 RESUMEN GENERAL:")
+            appendLine("${analysis.overallStatus}")
+            appendLine("${analysis.vehicleStatus}")
             appendLine()
+            
+            appendLine("🎯 INFORMACIÓN DEL WORKFLOW:")
+            appendLine("• Ruedas medidas: $wheelCount")
+            appendLine("• Rueda de referencia: $referenceWheelName")
+            appendLine("• TOE de referencia (bruto): ${String.format("%.2f", referenceToeRaw)}°")
+            appendLine("• Método: Medición relativa con smartphone")
+            appendLine()
+            
             appendLine("📋 MEDICIONES DETALLADAS:")
-            measurementResults.forEach { (wheel, measurements) ->
+            appendLine("----------------------------------------")
+            
+            // Only show actual wheel measurements
+            val wheelData = measurementResults.filterKeys { !it.startsWith("_") }
+            wheelData.forEach { (wheel, measurements) ->
+                val isReference = wheel == referenceWheelName
                 appendLine()
-                appendLine("🔧 $wheel:")
-                appendLine("  • Camber: ${String.format("%.2f", measurements["camber"])}°")
-                appendLine("  • Toe: ${String.format("%.2f", measurements["toe"])}°")
-                if (wheel.contains("Delantera")) {
-                    appendLine("  • Caster: ${String.format("%.2f", measurements["caster"])}°")
+                appendLine("🔧 $wheel${if (isReference) " (REFERENCIA)" else ""}:")
+                appendLine("  • Camber: ${String.format("%.2f", measurements["camber"] ?: 0f)}°")
+                if (isReference) {
+                    appendLine("  • TOE: 0.00° (por definición de referencia)")
+                } else {
+                    appendLine("  • TOE: ${String.format("%.2f", measurements["toe"] ?: 0f)}° (relativo)")
                 }
+                appendLine("  • Caster: No medido (ver documentación técnica)")
             }
             appendLine()
-            appendLine("💡 ${analysis.recommendations}")
+            
+            appendLine("💡 RECOMENDACIONES:")
+            appendLine("----------------------------------------")
+            appendLine(analysis.recommendations)
             appendLine()
-            appendLine("📱 Medido con la App de Alineación de Ruedas")
+            
+            appendLine("⚠️ NOTAS IMPORTANTES:")
+            appendLine("• Las mediciones de TOE son relativas a la rueda de referencia")
+            appendLine("• Para mediciones profesionales, consulte un taller especializado")
+            appendLine("• Esta app proporciona valores orientativos usando sensores del smartphone")
+            appendLine()
+            
+            appendLine("📱 Generado por AliniaSoon v1.0")
+            appendLine("🔗 App de alineación de ruedas con smartphone")
         }
         
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, shareText)
-            putExtra(Intent.EXTRA_SUBJECT, "Resultados de Alineación de Ruedas")
+            putExtra(Intent.EXTRA_SUBJECT, "Informe de Alineación - AliniaSoon")
         }
         
-        startActivity(Intent.createChooser(shareIntent, "Compartir resultados"))
+        startActivity(Intent.createChooser(shareIntent, "Compartir informe de alineación"))
     }
     
     private fun backToMain() {
@@ -246,6 +347,18 @@ class ResultsActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()
+    }
+    
+    private fun toggleRecommendations() {
+        isRecommendationsExpanded = !isRecommendationsExpanded
+        
+        if (isRecommendationsExpanded) {
+            recommendationsText.visibility = View.VISIBLE
+            recommendationsToggle.setImageResource(R.drawable.ic_keyboard_arrow_up)
+        } else {
+            recommendationsText.visibility = View.GONE
+            recommendationsToggle.setImageResource(R.drawable.ic_keyboard_arrow_down)
+        }
     }
     
     override fun onSupportNavigateUp(): Boolean {

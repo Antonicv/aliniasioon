@@ -49,44 +49,64 @@ class WheelResultsAdapter(
             
             val camber = measurements["camber"] ?: 0f
             val toe = measurements["toe"] ?: 0f
-            val caster = measurements["caster"] ?: 0f
             
-            // Determinar el estado general de la rueda
-            val overallStatus = determineWheelStatus(camber, toe, caster)
+            // Determine if this is the reference wheel (toe = 0)
+            val isReferenceWheel = toe == 0f && camber != 0f
+            
+            // Determinar el estado general de la rueda (sin caster)
+            val overallStatus = determineWheelStatus(camber, toe, isReferenceWheel)
             wheelStatusText.text = overallStatus.first
             wheelStatusText.setTextColor(overallStatus.second)
             
             // Mostrar valores
             camberValueText.text = "${String.format("%.2f", camber)}°"
-            toeValueText.text = "${String.format("%.2f", toe)}°"
-            casterValueText.text = "${String.format("%.2f", caster)}°"
+            if (isReferenceWheel) {
+                toeValueText.text = "0.00° (REF)"
+            } else {
+                toeValueText.text = "${String.format("%.2f", toe)}°"
+            }
+            casterValueText.text = "No medido"
             
             // Mostrar iconos de estado para cada valor
             camberStatusText.text = getStatusIcon(camber, -2f, 2f)
-            toeStatusText.text = getStatusIcon(toe, -0.5f, 0.5f)
-            casterStatusText.text = getStatusIcon(caster, 1f, 7f)
+            toeStatusText.text = if (isReferenceWheel) "🎯" else getStatusIcon(toe, -0.5f, 0.5f)
+            casterStatusText.text = "ℹ️"
             
-            // Caster solo para ruedas delanteras
-            if (wheelName.contains("Delantera")) {
-                casterLayout.visibility = View.VISIBLE
+            // Hide caster layout since it's not measured
+            casterLayout.visibility = View.GONE
+            
+            // Calcular desviación solo con camber y toe
+            val avgDeviation = (kotlin.math.abs(camber) + 
+                               if (!isReferenceWheel) kotlin.math.abs(toe) else 0f) / 
+                               if (!isReferenceWheel) 2 else 1
+            
+            val statusText = if (isReferenceWheel) {
+                "Rueda de referencia - Desviación camber: ${String.format("%.1f", kotlin.math.abs(camber))}°"
             } else {
-                casterLayout.visibility = View.GONE
+                "Desviación promedio: ${String.format("%.1f", avgDeviation)}° (${getDeviationQuality(avgDeviation)})"
             }
             
-            // Calcular desviación promedio
-            val avgDeviation = (kotlin.math.abs(camber) + kotlin.math.abs(toe) + 
-                               if (wheelName.contains("Delantera")) kotlin.math.abs(caster - 4f) else 0f) / 
-                               if (wheelName.contains("Delantera")) 3 else 2
-            
-            deviationText.text = "Desviación promedio: ${String.format("%.1f", avgDeviation)}° (${getDeviationQuality(avgDeviation)})"
+            deviationText.text = statusText
         }
         
-        private fun determineWheelStatus(camber: Float, toe: Float, caster: Float): Pair<String, Int> {
+        private fun determineWheelStatus(camber: Float, toe: Float, isReference: Boolean): Pair<String, Int> {
             val context = itemView.context
+            
+            if (isReference) {
+                return when {
+                    kotlin.math.abs(camber) < 0.5f -> 
+                        Pair("🎯 REFERENCIA EXCELENTE", context.getColor(android.R.color.holo_green_dark))
+                    kotlin.math.abs(camber) < 1f -> 
+                        Pair("🎯 REFERENCIA BUENA", context.getColor(android.R.color.holo_orange_dark))
+                    else -> 
+                        Pair("🎯 REFERENCIA (AJUSTAR)", context.getColor(android.R.color.holo_red_dark))
+                }
+            }
+            
             return when {
-                kotlin.math.abs(camber) < 0.5f && kotlin.math.abs(toe) < 0.2f && (caster in 2f..6f) -> 
+                kotlin.math.abs(camber) < 0.5f && kotlin.math.abs(toe) < 0.2f -> 
                     Pair("✅ EXCELENTE", context.getColor(android.R.color.holo_green_dark))
-                kotlin.math.abs(camber) < 1f && kotlin.math.abs(toe) < 0.3f && (caster in 1.5f..6.5f) -> 
+                kotlin.math.abs(camber) < 1f && kotlin.math.abs(toe) < 0.3f -> 
                     Pair("✓ BUENO", context.getColor(android.R.color.holo_orange_dark))
                 else -> 
                     Pair("⚠️ REQUIERE AJUSTE", context.getColor(android.R.color.holo_red_dark))

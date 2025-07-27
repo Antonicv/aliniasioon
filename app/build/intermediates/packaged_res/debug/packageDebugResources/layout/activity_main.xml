@@ -17,7 +17,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Alineación de Ruedas"
+            android:text="AliniaSoon"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textAlignment="center"

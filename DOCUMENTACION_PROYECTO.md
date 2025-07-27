@@ -1,4 +1,4 @@
-# Documentación del Proyecto: App de Alineación de Ruedas Android
+# Documentación del Proyecto: AliniaSoon - App Android
 
 ## 1. RESUMEN EJECUTIVO
 
