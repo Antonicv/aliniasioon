@@ -28,6 +28,16 @@
 🔧 AÑADIDO: Supresión de advertencia compileSdk en gradle.properties
 ```
 
+### 🚀 **Error: "resources not found"**
+```
+❌ PROBLEMA: xml/data_extraction_rules, xml/backup_rules, mipmap/ic_launcher not found
+✅ SOLUCIÓN: Creados archivos XML y iconos básicos
+
+🔧 CREADO: backup_rules.xml y data_extraction_rules.xml
+🔧 SIMPLIFICADO: AndroidManifest.xml para usar iconos del sistema
+🔧 AÑADIDO: Iconos vectoriales adaptativos
+```
+
 ### 🚀 **Warning: "We recommend using newer Android Gradle plugin"**
 ```
 ✅ ACTUALIZADO: Android Gradle Plugin 8.3.2 → 8.4.2
