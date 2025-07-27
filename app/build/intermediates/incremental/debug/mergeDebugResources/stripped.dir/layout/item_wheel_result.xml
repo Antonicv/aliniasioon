@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header with wheel position and status -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/wheelPositionText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🚗 Delantera Izquierda"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:textColor="?attr/colorPrimary"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/wheelStatusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✅ EXCELENTE"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:textStyle="bold"
+                android:background="@drawable/ic_launcher_foreground"
+                android:padding="6dp"
+                android:textColor="#2E7D32" />
+
+        </LinearLayout>
+
+        <!-- Measurement values grid -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Camber Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Camber:"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/camberValueText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-0.5°"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textStyle="bold"
+                    tools:text="-0.5°" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/camberStatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="✅"
+                    android:textSize="16sp"
+                    tools:text="✅" />
+
+            </LinearLayout>
+
+            <!-- Toe Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Convergencia:"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/toeValueText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.08°"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textStyle="bold"
+                    tools:text="0.08°" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/toeStatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="✅"
+                    android:textSize="16sp"
+                    tools:text="✅" />
+
+            </LinearLayout>
+
+            <!-- Caster Row (only for front wheels) -->
+            <LinearLayout
+                android:id="@+id/casterLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Caster:"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/casterValueText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.2°"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textStyle="bold"
+                    tools:text="3.2°" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/casterStatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="✅"
+                    android:textSize="16sp"
+                    tools:text="✅" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Deviation info -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="8dp"
+            android:background="?attr/colorOutlineVariant" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/deviationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Desviación promedio: 0.3° (Excelente)"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textAlignment="center"
+            tools:text="Desviación promedio: 0.3° (Excelente)" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

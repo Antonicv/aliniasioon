@@ -211,7 +211,7 @@ class CalibrationEngine {
         }
         
         for (i in average.indices) {
-            average[i] /= samples.size
+            average[i] = average[i] / samples.size
         }
         
         return average

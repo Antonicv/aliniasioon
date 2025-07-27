@@ -1,6 +1,22 @@
 [
     {
-        "merged": "com.alineacion.ruedas.app-mergeDebugResources-55:/layout/activity_main.xml",
-        "source": "com.alineacion.ruedas.app-main-58:/layout/activity_main.xml"
+        "merged": "com.alineacion.ruedas.app-mergeDebugResources-55:/layout/activity_calibration.xml",
+        "source": "com.alineacion.ruedas.app-main-58:/layout/activity_calibration.xml"
+    },
+    {
+        "merged": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-mergeDebugResources-55:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\anton\\.gradle\\daemon\\8.7\\com.alineacion.ruedas.app-main-58:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "com.alineacion.ruedas.app-mergeDebugResources-55:/layout/activity_measurement.xml",
+        "source": "com.alineacion.ruedas.app-main-58:/layout/activity_measurement.xml"
+    },
+    {
+        "merged": "com.alineacion.ruedas.app-mergeDebugResources-55:/layout/item_wheel_result.xml",
+        "source": "com.alineacion.ruedas.app-main-58:/layout/item_wheel_result.xml"
+    },
+    {
+        "merged": "com.alineacion.ruedas.app-mergeDebugResources-55:/layout/activity_results.xml",
+        "source": "com.alineacion.ruedas.app-main-58:/layout/activity_results.xml"
     }
 ]
