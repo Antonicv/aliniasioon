@@ -19,6 +19,15 @@
 🔧 REEMPLAZADO: Librería de gráficos por una más actualizada
 ```
 
+### 🚀 **Error: "attr/colorBackground not found"**
+```
+❌ PROBLEMA: style attribute 'attr/colorBackground' not found
+✅ SOLUCIÓN: Usado android:colorBackground en Material Design 3
+
+🔧 CORREGIDO: themes.xml con atributo correcto
+🔧 AÑADIDO: Supresión de advertencia compileSdk en gradle.properties
+```
+
 ### 🚀 **Warning: "We recommend using newer Android Gradle plugin"**
 ```
 ✅ ACTUALIZADO: Android Gradle Plugin 8.3.2 → 8.4.2
@@ -68,6 +77,18 @@ dependencyResolutionManagement {
         maven { url = uri("https://jitpack.io") } // ✅ Añadido para AnyChart
     }
 }
+```
+
+### 🔧 **gradle.properties**
+```kotlin
+# Suppress compileSdk warning
+android.suppressUnsupportedCompileSdk=35 // ✅ Añadido para suprimir advertencia
+```
+
+### 🔧 **themes.xml**
+```xml
+<!-- Corregido para Material Design 3 -->
+<item name="android:colorBackground">@color/md_theme_light_background</item> // ✅ android: prefijo añadido
 ```
 
 ---
