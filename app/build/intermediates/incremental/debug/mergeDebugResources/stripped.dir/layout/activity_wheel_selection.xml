@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
+    android:fillViewport="true"
     android:background="?attr/colorSurface">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <!-- Header -->
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:text="🚗 Selecciona las ruedas a medir"
+        android:text="Selecciona las ruedas a medir"
         android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
         android:textColor="?attr/colorPrimary"
         android:textAlignment="center"
@@ -54,32 +59,71 @@
                 app:strokeWidth="2dp"
                 app:strokeColor="@android:color/transparent">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp"
                     android:background="?attr/colorSurfaceVariant">
 
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginBottom="12dp"
-                        android:src="@drawable/neumatico"
-                        android:contentDescription="Rueda Delantera Izquierda"
-                        android:scaleType="fitCenter" />
-
+                    <!-- Indicador de estabilidad en la esquina superior izquierda -->
                     <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="DELANTERA\nIZQUIERDA"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:textAlignment="center"
-                        android:textStyle="bold" />
+                        android:id="@+id/frontLeftStabilityIndicator"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="top|start"
+                        android:layout_margin="8dp"
+                        android:text="⚪"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:visibility="gone" />
 
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_marginBottom="12dp"
+                            android:src="@drawable/neumatico"
+                            android:contentDescription="Rueda Delantera Izquierda"
+                            android:scaleType="fitCenter" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DELANTERA\nIZQUIERDA"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/frontLeftDataText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Haz clic para ver datos en tiempo real"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textAlignment="center"
+                            android:visibility="visible" />
+
+                        <!-- Botón para fijar datos -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/frontLeftFixButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_marginTop="8dp"
+                            android:text="FIJAR DATOS"
+                            android:textSize="10sp"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+                </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Front Right Wheel -->
@@ -94,32 +138,71 @@
                 app:strokeWidth="2dp"
                 app:strokeColor="@android:color/transparent">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp"
                     android:background="?attr/colorSurfaceVariant">
 
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginBottom="12dp"
-                        android:src="@drawable/neumatico"
-                        android:contentDescription="Rueda Delantera Derecha"
-                        android:scaleType="fitCenter" />
-
+                    <!-- Indicador de estabilidad en la esquina superior izquierda -->
                     <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="DELANTERA\nDERECHA"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:textAlignment="center"
-                        android:textStyle="bold" />
+                        android:id="@+id/frontRightStabilityIndicator"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="top|start"
+                        android:layout_margin="8dp"
+                        android:text="⚪"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:visibility="gone" />
 
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_marginBottom="12dp"
+                            android:src="@drawable/neumatico"
+                            android:contentDescription="Rueda Delantera Derecha"
+                            android:scaleType="fitCenter" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DELANTERA\nDERECHA"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/frontRightDataText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Haz clic para ver datos en tiempo real"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textAlignment="center"
+                            android:visibility="visible" />
+
+                        <!-- Botón para fijar datos -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/frontRightFixButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_marginTop="8dp"
+                            android:text="FIJAR DATOS"
+                            android:textSize="10sp"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+                </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
@@ -144,32 +227,71 @@
                 app:strokeWidth="2dp"
                 app:strokeColor="@android:color/transparent">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp"
                     android:background="?attr/colorSurfaceVariant">
 
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginBottom="12dp"
-                        android:src="@drawable/neumatico"
-                        android:contentDescription="Rueda Trasera Izquierda"
-                        android:scaleType="fitCenter" />
-
+                    <!-- Indicador de estabilidad en la esquina superior izquierda -->
                     <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TRASERA\nIZQUIERDA"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:textAlignment="center"
-                        android:textStyle="bold" />
+                        android:id="@+id/rearLeftStabilityIndicator"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="top|start"
+                        android:layout_margin="8dp"
+                        android:text="⚪"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:visibility="gone" />
 
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_marginBottom="12dp"
+                            android:src="@drawable/neumatico"
+                            android:contentDescription="Rueda Trasera Izquierda"
+                            android:scaleType="fitCenter" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TRASERA\nIZQUIERDA"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/rearLeftDataText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Haz clic para ver datos en tiempo real"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textAlignment="center"
+                            android:visibility="visible" />
+
+                        <!-- Botón para fijar datos -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/rearLeftFixButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_marginTop="8dp"
+                            android:text="FIJAR DATOS"
+                            android:textSize="10sp"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+                </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Rear Right Wheel -->
@@ -184,58 +306,83 @@
                 app:strokeWidth="2dp"
                 app:strokeColor="@android:color/transparent">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp"
                     android:background="?attr/colorSurfaceVariant">
 
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginBottom="12dp"
-                        android:src="@drawable/neumatico"
-                        android:contentDescription="Rueda Trasera Derecha"
-                        android:scaleType="fitCenter" />
-
+                    <!-- Indicador de estabilidad en la esquina superior izquierda -->
                     <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TRASERA\nDERECHA"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:textAlignment="center"
-                        android:textStyle="bold" />
+                        android:id="@+id/rearRightStabilityIndicator"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="top|start"
+                        android:layout_margin="8dp"
+                        android:text="⚪"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:visibility="gone" />
 
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_marginBottom="12dp"
+                            android:src="@drawable/neumatico"
+                            android:contentDescription="Rueda Trasera Derecha"
+                            android:scaleType="fitCenter" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TRASERA\nDERECHA"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/rearRightDataText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Haz clic para ver datos en tiempo real"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textAlignment="center"
+                            android:visibility="visible" />
+
+                        <!-- Botón para fijar datos -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/rearRightFixButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_marginTop="8dp"
+                            android:text="FIJAR DATOS"
+                            android:textSize="10sp"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+                </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <!-- Selection Info -->
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/selectionInfoText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp"
-        android:text="Selecciona al menos 2 ruedas para continuar"
-        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-        android:textColor="?attr/colorOnSurface"
-        android:textAlignment="center"
-        android:padding="12dp"
-        android:background="@drawable/rounded_background" />
-
     <!-- Action Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="24dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/clearSelectionButton"
@@ -259,3 +406,5 @@
     </LinearLayout>
 
 </LinearLayout>
+
+</ScrollView>

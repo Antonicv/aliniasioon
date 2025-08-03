@@ -15,7 +15,8 @@ class WheelResultsAdapter(
     private val measurementResults: Map<String, Map<String, Float>>
 ) : RecyclerView.Adapter<WheelResultsAdapter.WheelResultViewHolder>() {
     
-    private val wheels = measurementResults.keys.toList()
+    // Filtrar solo las ruedas reales, excluyendo entradas especiales como "_workflow_info"
+    private val wheels = measurementResults.keys.filter { !it.startsWith("_") }.toList()
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WheelResultViewHolder {
         val view = LayoutInflater.from(parent.context)

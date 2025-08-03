@@ -4,7 +4,7 @@ package com.alineacion.ruedas.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
@@ -19,7 +19,7 @@ import java.lang.String;
 
 public final class ActivityWheelSelectionBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final ScrollView rootView;
 
   @NonNull
   public final MaterialButton clearSelectionButton;
@@ -28,38 +28,90 @@ public final class ActivityWheelSelectionBinding implements ViewBinding {
   public final MaterialCardView frontLeftCard;
 
   @NonNull
+  public final MaterialTextView frontLeftDataText;
+
+  @NonNull
+  public final MaterialButton frontLeftFixButton;
+
+  @NonNull
+  public final MaterialTextView frontLeftStabilityIndicator;
+
+  @NonNull
   public final MaterialCardView frontRightCard;
+
+  @NonNull
+  public final MaterialTextView frontRightDataText;
+
+  @NonNull
+  public final MaterialButton frontRightFixButton;
+
+  @NonNull
+  public final MaterialTextView frontRightStabilityIndicator;
 
   @NonNull
   public final MaterialCardView rearLeftCard;
 
   @NonNull
+  public final MaterialTextView rearLeftDataText;
+
+  @NonNull
+  public final MaterialButton rearLeftFixButton;
+
+  @NonNull
+  public final MaterialTextView rearLeftStabilityIndicator;
+
+  @NonNull
   public final MaterialCardView rearRightCard;
 
   @NonNull
-  public final MaterialTextView selectionInfoText;
+  public final MaterialTextView rearRightDataText;
+
+  @NonNull
+  public final MaterialButton rearRightFixButton;
+
+  @NonNull
+  public final MaterialTextView rearRightStabilityIndicator;
 
   @NonNull
   public final MaterialButton startMeasurementButton;
 
-  private ActivityWheelSelectionBinding(@NonNull LinearLayout rootView,
+  private ActivityWheelSelectionBinding(@NonNull ScrollView rootView,
       @NonNull MaterialButton clearSelectionButton, @NonNull MaterialCardView frontLeftCard,
-      @NonNull MaterialCardView frontRightCard, @NonNull MaterialCardView rearLeftCard,
-      @NonNull MaterialCardView rearRightCard, @NonNull MaterialTextView selectionInfoText,
+      @NonNull MaterialTextView frontLeftDataText, @NonNull MaterialButton frontLeftFixButton,
+      @NonNull MaterialTextView frontLeftStabilityIndicator,
+      @NonNull MaterialCardView frontRightCard, @NonNull MaterialTextView frontRightDataText,
+      @NonNull MaterialButton frontRightFixButton,
+      @NonNull MaterialTextView frontRightStabilityIndicator,
+      @NonNull MaterialCardView rearLeftCard, @NonNull MaterialTextView rearLeftDataText,
+      @NonNull MaterialButton rearLeftFixButton,
+      @NonNull MaterialTextView rearLeftStabilityIndicator, @NonNull MaterialCardView rearRightCard,
+      @NonNull MaterialTextView rearRightDataText, @NonNull MaterialButton rearRightFixButton,
+      @NonNull MaterialTextView rearRightStabilityIndicator,
       @NonNull MaterialButton startMeasurementButton) {
     this.rootView = rootView;
     this.clearSelectionButton = clearSelectionButton;
     this.frontLeftCard = frontLeftCard;
+    this.frontLeftDataText = frontLeftDataText;
+    this.frontLeftFixButton = frontLeftFixButton;
+    this.frontLeftStabilityIndicator = frontLeftStabilityIndicator;
     this.frontRightCard = frontRightCard;
+    this.frontRightDataText = frontRightDataText;
+    this.frontRightFixButton = frontRightFixButton;
+    this.frontRightStabilityIndicator = frontRightStabilityIndicator;
     this.rearLeftCard = rearLeftCard;
+    this.rearLeftDataText = rearLeftDataText;
+    this.rearLeftFixButton = rearLeftFixButton;
+    this.rearLeftStabilityIndicator = rearLeftStabilityIndicator;
     this.rearRightCard = rearRightCard;
-    this.selectionInfoText = selectionInfoText;
+    this.rearRightDataText = rearRightDataText;
+    this.rearRightFixButton = rearRightFixButton;
+    this.rearRightStabilityIndicator = rearRightStabilityIndicator;
     this.startMeasurementButton = startMeasurementButton;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public ScrollView getRoot() {
     return rootView;
   }
 
@@ -96,9 +148,45 @@ public final class ActivityWheelSelectionBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.frontLeftDataText;
+      MaterialTextView frontLeftDataText = ViewBindings.findChildViewById(rootView, id);
+      if (frontLeftDataText == null) {
+        break missingId;
+      }
+
+      id = R.id.frontLeftFixButton;
+      MaterialButton frontLeftFixButton = ViewBindings.findChildViewById(rootView, id);
+      if (frontLeftFixButton == null) {
+        break missingId;
+      }
+
+      id = R.id.frontLeftStabilityIndicator;
+      MaterialTextView frontLeftStabilityIndicator = ViewBindings.findChildViewById(rootView, id);
+      if (frontLeftStabilityIndicator == null) {
+        break missingId;
+      }
+
       id = R.id.frontRightCard;
       MaterialCardView frontRightCard = ViewBindings.findChildViewById(rootView, id);
       if (frontRightCard == null) {
+        break missingId;
+      }
+
+      id = R.id.frontRightDataText;
+      MaterialTextView frontRightDataText = ViewBindings.findChildViewById(rootView, id);
+      if (frontRightDataText == null) {
+        break missingId;
+      }
+
+      id = R.id.frontRightFixButton;
+      MaterialButton frontRightFixButton = ViewBindings.findChildViewById(rootView, id);
+      if (frontRightFixButton == null) {
+        break missingId;
+      }
+
+      id = R.id.frontRightStabilityIndicator;
+      MaterialTextView frontRightStabilityIndicator = ViewBindings.findChildViewById(rootView, id);
+      if (frontRightStabilityIndicator == null) {
         break missingId;
       }
 
@@ -108,15 +196,45 @@ public final class ActivityWheelSelectionBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.rearLeftDataText;
+      MaterialTextView rearLeftDataText = ViewBindings.findChildViewById(rootView, id);
+      if (rearLeftDataText == null) {
+        break missingId;
+      }
+
+      id = R.id.rearLeftFixButton;
+      MaterialButton rearLeftFixButton = ViewBindings.findChildViewById(rootView, id);
+      if (rearLeftFixButton == null) {
+        break missingId;
+      }
+
+      id = R.id.rearLeftStabilityIndicator;
+      MaterialTextView rearLeftStabilityIndicator = ViewBindings.findChildViewById(rootView, id);
+      if (rearLeftStabilityIndicator == null) {
+        break missingId;
+      }
+
       id = R.id.rearRightCard;
       MaterialCardView rearRightCard = ViewBindings.findChildViewById(rootView, id);
       if (rearRightCard == null) {
         break missingId;
       }
 
-      id = R.id.selectionInfoText;
-      MaterialTextView selectionInfoText = ViewBindings.findChildViewById(rootView, id);
-      if (selectionInfoText == null) {
+      id = R.id.rearRightDataText;
+      MaterialTextView rearRightDataText = ViewBindings.findChildViewById(rootView, id);
+      if (rearRightDataText == null) {
+        break missingId;
+      }
+
+      id = R.id.rearRightFixButton;
+      MaterialButton rearRightFixButton = ViewBindings.findChildViewById(rootView, id);
+      if (rearRightFixButton == null) {
+        break missingId;
+      }
+
+      id = R.id.rearRightStabilityIndicator;
+      MaterialTextView rearRightStabilityIndicator = ViewBindings.findChildViewById(rootView, id);
+      if (rearRightStabilityIndicator == null) {
         break missingId;
       }
 
@@ -126,8 +244,11 @@ public final class ActivityWheelSelectionBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityWheelSelectionBinding((LinearLayout) rootView, clearSelectionButton,
-          frontLeftCard, frontRightCard, rearLeftCard, rearRightCard, selectionInfoText,
+      return new ActivityWheelSelectionBinding((ScrollView) rootView, clearSelectionButton,
+          frontLeftCard, frontLeftDataText, frontLeftFixButton, frontLeftStabilityIndicator,
+          frontRightCard, frontRightDataText, frontRightFixButton, frontRightStabilityIndicator,
+          rearLeftCard, rearLeftDataText, rearLeftFixButton, rearLeftStabilityIndicator,
+          rearRightCard, rearRightDataText, rearRightFixButton, rearRightStabilityIndicator,
           startMeasurementButton);
     }
     String missingId = rootView.getResources().getResourceName(id);

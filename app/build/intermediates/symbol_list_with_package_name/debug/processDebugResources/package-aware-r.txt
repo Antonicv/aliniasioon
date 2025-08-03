@@ -3398,7 +3398,13 @@ id floating
 id forever
 id fragment_container_view_tag
 id frontLeftCard
+id frontLeftDataText
+id frontLeftFixButton
+id frontLeftStabilityIndicator
 id frontRightCard
+id frontRightDataText
+id frontRightFixButton
+id frontRightStabilityIndicator
 id frost
 id fullscreen_header
 id ghost_view
@@ -3575,7 +3581,13 @@ id progress_horizontal
 id radio
 id ratio
 id rearLeftCard
+id rearLeftDataText
+id rearLeftFixButton
+id rearLeftStabilityIndicator
 id rearRightCard
+id rearRightDataText
+id rearRightFixButton
+id rearRightStabilityIndicator
 id recommendationsCard
 id recommendationsHeader
 id recommendationsText
@@ -3613,7 +3625,6 @@ id search_src_text
 id search_voice_btn
 id select_dialog_listview
 id selected
-id selectionInfoText
 id selection_type
 id sensor_status_card
 id sensor_status_text

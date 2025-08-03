@@ -91,7 +91,10 @@
             android:layout_marginBottom="20dp"
             android:nestedScrollingEnabled="false"
             android:clipToPadding="false"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"
+            android:minHeight="300dp"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_wheel_result" />
 
         <!-- Recommendations Card - Collapsible -->
         <com.google.android.material.card.MaterialCardView
